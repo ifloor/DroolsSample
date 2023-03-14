@@ -1,0 +1,21 @@
+package com.example.droolssample
+
+import com.example.droolssample.model.Applicant;
+
+global com.example.droolssample.model.SuggestedRole suggestedRole;
+
+dialect "mvel"
+
+rule "Suggest default role"
+    when
+    then
+        suggestedRole.setRole("Intern");
+end
+
+rule "Suggest Manager Role"
+    when
+        Applicant(experienceInYears > 10)
+        Applicant(currentSalary > 1000000 && currentSalary <= 2500000)
+    then
+        suggestedRole.setRole("Manager");
+end
